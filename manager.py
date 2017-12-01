@@ -1,7 +1,5 @@
-import re
 globalLineLenght = 111
 numberOfLines = 11
-#globalLenght = globalLineLenght*numberOfLines
 distanceBetweenCharacters = 1
 vowels = "уеыаоэяиюёУЕЫАОЭЯИЮЁ"
 consonants = "йцкнгшщзхъфвпрлджчсмтьбЙЦКНГШЩЗХЪФВПРЛДЖЧСМТЬБ"
@@ -20,11 +18,32 @@ s2 = ""
 c2Lenght = 0
 
 def get_syllables(word):
-    vowels = set(u'аеёиоуыэюя')
-    sign_chars = set(u'ъь')
-    pattern = re.compile(u"(c*[ьъ]?vc+[ьъ](?=v))|(c*[ьъ]?v(?=v|cv))|(c*[ьъ]?vc[ъь]?(?=cv|ccv))|(c*[ьъ]?v[cьъ]*(?=$))")
-    mask = ''.join(['v' if c in vowels else c if c in sign_chars else 'c' for c in word.lower()])
-    return [word[m.start():m.end()] for m in pattern.finditer(mask)]
+    vowels1 = "уеыаоэяиюёУЕЫАОЭЯИЮЁ"
+    consonants1 = "цкнгшщзхфвпрлджчсмтбЦКНГШЩЗХФВПРЛДЖЧСМТБ"
+    exclusions1 = "ЙЫЬЪйыъь"
+    result = []
+    stopi = len(word)
+    s1 = ''
+    counter = 0
+    numnerOfVowels = 0
+    for c in word:
+        if c in vowels1:
+            numnerOfVowels += 1
+    for i in reversed(range(0, len(word))):
+        if (word[i] in vowels1) and (counter >= numnerOfVowels - 1):
+            s1 = word[0: stopi + 1]
+        elif word[i] in vowels1:
+            if word[i - 1] in consonants1:
+                s1 = word[i - 1:stopi + 1]
+                stopi = i - 2
+            if (word[i - 1] in vowels1) or (i == 0) or (word[i - 1] in exclusions1):
+                s1 = word[i:stopi + 1]
+                stopi = i - 1
+        if s1 != '':
+            result.append(s1)
+            counter += 1
+        s1 = ''
+    return (result[::-1])
 
 
 def charLenght(char):
@@ -47,8 +66,6 @@ with open(inputFileName,'r') as inputFile:
                         s = word
                     else:
                         s = s + ' ' + word
-                    print("word: ", word)
-                    print('linesCounter: ', linesCounter)
                     lineLenght = lineLenght + charLenght(' ') + wordLength
                     wordLength = 0
                 else:
@@ -62,11 +79,8 @@ with open(inputFileName,'r') as inputFile:
 
                         if lineLenght + temporaryWordLenght + charLenght("-") < globalLineLenght:
                             s1 = s1 + syllable
-                            print("s1: ", s1)
-                            print("syllable: ", syllable)
                         else:
                             s2 = s2 + syllable
-                            print("s2: ", s2 )
                             c2Lenght = syllablesLength + c2Lenght
                         syllablesLength = 0
                     if s1 != '':
@@ -87,7 +101,6 @@ with open(inputFileName,'r') as inputFile:
                     s = s2
                     s1 = ''
                     s2 = ''
-                    # print("c2Lenght: ",c2Lenght)
                     wordLength = 0
                     lineLenght = c2Lenght
                     c2Lenght = 0
