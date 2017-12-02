@@ -4,7 +4,7 @@ distanceBetweenCharacters = 1
 vowels = "уеыаоэяиюёУЕЫАОЭЯИЮЁ"
 consonants = "йцкнгшщзхъфвпрлджчсмтьбЙЦКНГШЩЗХЪФВПРЛДЖЧСМТЬБ"
 characterWithLength = [["!:;.,", 1 ],["абвгдеёжзийклмопрстуфхчшьэяцАБВГДЕЁЖЗИЙКЛМОПРСТУФХЧШЬЭЯ" , 5],
-                       ["нщъюыНЩЪЮЫЦ", 6],["()*", 4], ['+=-?%“',5],[" ",3],
+                       ["нщъюыНЩЪЮЫЦ", 6],["()*—", 4], ['+=-?%“',5],[" ",3],
                        ["1234567890", 5] , ["\n" , 0]]
 inputFileName = "input.txt"
 outputFileName = "output.txt"
@@ -53,14 +53,15 @@ def charLenght(char):
             return group[1]
 
 
+
 with open(inputFileName,'r') as inputFile:
     with open(outputFileName, "w") as outFile:
         for inputLine in inputFile.readlines():
+            s_check = 0
             if len(inputLine) > 0 :
                 text = inputLine.split()
                 for word in text:
                     if '\n' in word: print(word)
-                    s_check = 0
                     for character in word:
                         for group in characterWithLength:
                             if character in group[0]:
@@ -120,26 +121,22 @@ with open(inputFileName,'r') as inputFile:
                 #print(s_check , " : " ,s )
 
                 print('1  -- s: ', s, ' s_check: ', s_check)
-                if s_check == 0 : #wtf?
-                    if linesCounter + 2 > numberOfLines:
-                        #print('2  -- s: ', s, ' linesCounter: ', linesCounter)
-                        outFile.write(s + '\n')
-                        outFile.write('----------' + '\n')
-                        linesCounter = 0
-                    elif linesCounter < numberOfLines:
-                        #print('1  -- s: ',s, ' linesCounter: ',linesCounter)
+                if s_check == 0 :
+                    if linesCounter < numberOfLines:
+                        print('6  -- s: ',s, ' linesCounter: ',linesCounter)
                         outFile.write(s+'\n\n')
+                        outFile.write('----------' + '\n')
                         linesCounter = linesCounter + 2
                         s = ''
                         wordLength = 0
                         lineLenght = 0
                     else:
-                        #print('3  -- s: ', s, ' linesCounter: ', linesCounter)
+                        print('7  -- s: ', s, ' linesCounter: ', linesCounter)
                         outFile.write(s + '\n\n')
-
+                        outFile.write('----------' + '\n')
                         linesCounter = linesCounter + 3
-                        #linesCounter = 0
                         lineLenght=0
+                        linesCounter = 0
                         s = ''
                         wordLength = 0
                 elif s == '':
