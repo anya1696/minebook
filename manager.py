@@ -90,23 +90,25 @@ with open(inputFileName,'r') as inputFile:
                         if s1 != '':
                             if linesCounter < numberOfLines:
                                 outFile.write(s + ' ' + s1 + '-' + '\n')
-                                #print('1 - s: ', s, ' linesCounter: ', linesCounter)
+                                print('1 - s: ', s, ' linesCounter: ', linesCounter)
                                 linesCounter = linesCounter + 1
                                 s_check = 1
                             else:
                                 outFile.write(s + ' ' + s1 + '-' + '\n\n')
-                                #print('2 - s: ', s, ' linesCounter: ', linesCounter)
+                                print('2 - s: ', s, ' linesCounter: ', linesCounter)
+                                outFile.write('----------' + '\n')
                                 linesCounter = 0
                                 s_check = 1
                         else:
                             if linesCounter < numberOfLines:
                                 outFile.write(s + '\n')
                                 s_check = 1
-                                #print('3 - s: ', s, ' linesCounter: ', linesCounter)
+                                print('3 - s: ', s, ' linesCounter: ', linesCounter)
                                 linesCounter = linesCounter + 1
                             else:
                                 outFile.write(s + '\n\n')
-                                #print('4 - s: ', s, ' linesCounter: ', linesCounter)
+                                print('4 - s: ', s, ' linesCounter: ', linesCounter)
+                                outFile.write('----------' + '\n')
                                 linesCounter = 0
                                 s_check = 1
                         s = s2
@@ -116,34 +118,37 @@ with open(inputFileName,'r') as inputFile:
                         lineLenght = c2Lenght
                         c2Lenght = 0
                 #print(s_check , " : " ,s )
-                #if s == '':
-                #    if linesCounter < numberOfLines:
-                #        linesCounter = linesCounter + 1
-                #        outFile.write(s + '\n')
-                #    else:
-                #        linesCounter = 0
+
                 print('1  -- s: ', s, ' s_check: ', s_check)
                 if s_check == 0 : #wtf?
-                    if linesCounter < numberOfLines:
-                        print('1  -- s: ',s, ' linesCounter: ',linesCounter)
-                        outFile.write(s+'\n')
-                        linesCounter = linesCounter + 1
+                    if linesCounter + 2 > numberOfLines:
+                        #print('2  -- s: ', s, ' linesCounter: ', linesCounter)
+                        outFile.write(s + '\n')
+                        outFile.write('----------' + '\n')
+                        linesCounter = 0
+                    elif linesCounter < numberOfLines:
+                        #print('1  -- s: ',s, ' linesCounter: ',linesCounter)
+                        outFile.write(s+'\n\n')
+                        linesCounter = linesCounter + 2
                         s = ''
                         wordLength = 0
                         lineLenght = 0
                     else:
-                        if linesCounter + 2 > numberOfLines:
-                            print('2  -- s: ', s, ' linesCounter: ', linesCounter)
-                            outFile.write(s + '\n')
-                            linesCounter = 0
-                        else:
-                            print('3  -- s: ', s, ' linesCounter: ', linesCounter)
-                            outFile.write(s + '\n\n')
-                            linesCounter = linesCounter + 3
+                        #print('3  -- s: ', s, ' linesCounter: ', linesCounter)
+                        outFile.write(s + '\n\n')
+
+                        linesCounter = linesCounter + 3
                         #linesCounter = 0
                         lineLenght=0
                         s = ''
                         wordLength = 0
+                elif s == '':
+                    if linesCounter < numberOfLines:
+                        linesCounter = linesCounter + 1
+                        outFile.write(s + '\n')
+                    else:
+                        linesCounter = 0
+
 
 
 
