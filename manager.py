@@ -57,6 +57,7 @@ def charLenght(char):
 
 with open(inputFileName,'r') as inputFile:
     with open(outputFileName, "w") as outFile:
+        рage_Counter = 1
         for inputLine in inputFile.readlines():
             s_check = 0
             if len(inputLine) > 0 :
@@ -98,7 +99,8 @@ with open(inputFileName,'r') as inputFile:
                             else:
                                 outFile.write(s + ' ' + s1 + '-' + '\n\n')
                                 print('2 - s: ', s, ' linesCounter: ', linesCounter)
-                                outFile.write('----------' + '\n')
+                                outFile.write('---------- ' + str(рage_Counter) + '\n')
+                                рage_Counter +=1
                                 linesCounter = 0
                                 s_check = 1
                         else:
@@ -110,7 +112,8 @@ with open(inputFileName,'r') as inputFile:
                             else:
                                 outFile.write(s + '\n\n')
                                 print('4 - s: ', s, ' linesCounter: ', linesCounter)
-                                outFile.write('----------' + '\n')
+                                outFile.write('---------- ' + str(рage_Counter) + '\n')
+                                рage_Counter += 1
                                 linesCounter = 0
                                 s_check = 1
                         s = s2
@@ -126,7 +129,8 @@ with open(inputFileName,'r') as inputFile:
                     if linesCounter < numberOfLines:
                         print('6  -- s: ',s, ' linesCounter: ',linesCounter)
                         outFile.write(s+'\n\n')
-                        outFile.write('----------' + '\n')
+                        outFile.write('---------- ' + str(рage_Counter) + '\n')
+                        рage_Counter += 1
                         linesCounter = linesCounter + 2
                         s = ''
                         wordLength = 0
@@ -134,7 +138,8 @@ with open(inputFileName,'r') as inputFile:
                     else:
                         print('7  -- s: ', s, ' linesCounter: ', linesCounter)
                         outFile.write(s + '\n\n')
-                        outFile.write('----------' + '\n')
+                        outFile.write('---------- ' + str(рage_Counter) + '\n')
+                        рage_Counter += 1
                         linesCounter = linesCounter + 3
                         lineLenght=0
                         linesCounter = 0
