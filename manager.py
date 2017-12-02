@@ -51,6 +51,7 @@ def charLenght(char):
     for group in characterWithLength:
         if char in group[0]:
             return group[1]
+    return 6
 
 
 
