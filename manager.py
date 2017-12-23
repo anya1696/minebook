@@ -51,6 +51,7 @@ def charLenght(char):
     for group in characterWithLength:
         if char in group[0]:
             return group[1]
+    print("+++++" , char)
     return 6
 
 
@@ -84,7 +85,7 @@ with open(inputFileName,'r') as inputFile:
                                 temporaryWordLenght = temporaryWordLenght + charLenght(syllableCharacter) + 1
                                 syllablesLength = syllablesLength + charLenght(syllableCharacter) + 1
 
-                            if lineLenght + temporaryWordLenght + charLenght("-") < globalLineLenght:
+                            if lineLenght + temporaryWordLenght + 1 + charLenght("-")+1 < globalLineLenght:
                                 s1 = s1 + syllable
                             else:
                                 s2 = s2 + syllable
@@ -93,12 +94,12 @@ with open(inputFileName,'r') as inputFile:
                         if s1 != '':
                             if linesCounter < numberOfLines:
                                 outFile.write(s + ' ' + s1 + '-' + '\n')
-                                print('1 - s: ', s, ' linesCounter: ', linesCounter)
+                                print('1 - s: ', s, ' linesCounter: ', linesCounter, "|рage_Counter: ", рage_Counter)
                                 linesCounter = linesCounter + 1
                                 s_check = 1
                             else:
                                 outFile.write(s + ' ' + s1 + '-' + '\n\n')
-                                print('2 - s: ', s, ' linesCounter: ', linesCounter)
+                                print('2 - s: ', s, ' linesCounter: ', linesCounter, "|рage_Counter: ", рage_Counter)
                                 outFile.write('---------- ' + str(рage_Counter) + '\n')
                                 рage_Counter +=1
                                 linesCounter = 0
@@ -107,11 +108,11 @@ with open(inputFileName,'r') as inputFile:
                             if linesCounter < numberOfLines:
                                 outFile.write(s + '\n')
                                 s_check = 1
-                                print('3 - s: ', s, ' linesCounter: ', linesCounter)
+                                print('3 - s: ', s, ' linesCounter: ', linesCounter, "|рage_Counter: ", рage_Counter)
                                 linesCounter = linesCounter + 1
                             else:
                                 outFile.write(s + '\n\n')
-                                print('4 - s: ', s, ' linesCounter: ', linesCounter)
+                                print('4 - s: ', s, ' linesCounter: ', linesCounter, "|рage_Counter: ", рage_Counter )
                                 outFile.write('---------- ' + str(рage_Counter) + '\n')
                                 рage_Counter += 1
                                 linesCounter = 0
@@ -127,18 +128,19 @@ with open(inputFileName,'r') as inputFile:
                 print('1  -- s: ', s, ' s_check: ', s_check)
                 if s_check == 0 :
                     if linesCounter < numberOfLines:
-                        print('6  -- s: ',s, ' linesCounter: ',linesCounter)
+                        print('6  -- s: ',s, ' linesCounter: ',linesCounter, "|рage_Counter: ", рage_Counter)
                         outFile.write(s+'\n\n')
-                        outFile.write('---------- ' + str(рage_Counter) + '\n')
-                        рage_Counter += 1
+                        #outFile.write('---------- ' + str(рage_Counter) + '\n')
+                        s_check = 0
                         linesCounter = linesCounter + 2
                         s = ''
                         wordLength = 0
                         lineLenght = 0
                     else:
-                        print('7  -- s: ', s, ' linesCounter: ', linesCounter)
+                        print('7  -- s: ', s, ' linesCounter: ', linesCounter, "|рage_Counter: ", рage_Counter)
                         outFile.write(s + '\n\n')
                         outFile.write('---------- ' + str(рage_Counter) + '\n')
+                        s_check = 0
                         рage_Counter += 1
                         linesCounter = linesCounter + 3
                         lineLenght=0
