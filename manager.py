@@ -6,6 +6,7 @@ consonants = "йцкнгшщзхъфвпрлджчсмтьбЙЦКНГШЩЗХЪ
 characterWithLength = [["!:;.,", 1 ],["абвгдеёжзийклмопрстуфхчшьэяцАБВГДЕЁЖЗИЙКЛМОПРСТУФХЧШЬЭЯ" , 5],
                        ["нщъюыНЩЪЮЫЦ", 6],["()*—", 4], ['+=-?%“',5],[" ",3],
                        ["1234567890", 5] , ["\n" , 0]]
+special_symbols = ["\n"]
 inputFileName = "input.txt"
 outputFileName = "output.txt"
 counter = 0
@@ -59,12 +60,14 @@ def charLenght(char):
 with open(inputFileName,'r') as inputFile:
     with open(outputFileName, "w") as outFile:
         рage_Counter = 1
+        remainder_page_couter = рage_Counter
+        remainder_s = ''
         for inputLine in inputFile.readlines():
             s_check = 0
-            if len(inputLine) > 0 :
+            if (len(inputLine) > 0) and not (inputLine in special_symbols) :
                 text = inputLine.split()
                 for word in text:
-                    if '\n' in word: print(word)
+                    #if '\n' in word: print(word)
                     for character in word:
                         for group in characterWithLength:
                             if character in group[0]:
@@ -118,13 +121,14 @@ with open(inputFileName,'r') as inputFile:
                                 linesCounter = 0
                                 s_check = 1
                         s = s2
+
                         s1 = ''
                         s2 = ''
+                        remainder_page_couter = рage_Counter
                         wordLength = 0
                         lineLenght = c2Lenght
                         c2Lenght = 0
                 #print(s_check , " : " ,s )
-
                 print('1  -- s: ', s, ' s_check: ', s_check)
                 if s_check == 0 :
                     if linesCounter < numberOfLines:
@@ -153,7 +157,9 @@ with open(inputFileName,'r') as inputFile:
                         outFile.write(s + '\n')
                     else:
                         linesCounter = 0
-
+            remainder_s = s
+        if (remainder_s !=""):
+            outFile.write(remainder_s)
 
 
 
