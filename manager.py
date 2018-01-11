@@ -64,7 +64,7 @@ with open(inputFileName,'r') as inputFile:
         remainder_s = ''
         for inputLine in inputFile.readlines():
             s_check = 0
-            if (len(inputLine) > 0) and not (inputLine in special_symbols) :
+            if (len(inputLine) > 0) :
                 text = inputLine.split()
                 for word in text:
                     #if '\n' in word: print(word)
@@ -157,6 +157,7 @@ with open(inputFileName,'r') as inputFile:
                         outFile.write(s + '\n')
                     else:
                         linesCounter = 0
+
             remainder_s = s
         if (remainder_s !=""):
             outFile.write(remainder_s)
